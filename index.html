@@ -1,0 +1,287 @@
+here<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Greeting | Lyn</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@300;500&display=swap');
+
+        :root {
+            --primary-red: #ff4d6d;
+            --soft-pink: #ff85a1;
+            --light-gold: #f9dcc4;
+            --glass-white: rgba(255, 255, 255, 0.12);
+            --deep-gradient: linear-gradient(135deg, #2b0b1a 0%, #5a122d 50%, #1a0a1d 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Montserrat', 'Amiri', serif;
+            background: var(--deep-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Particles Background */
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Soft Glow Effects */
+        .light-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 77, 109, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 2;
+            animation: pulseGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { transform: scale(1); opacity: 0.4; }
+            to { transform: scale(1.5); opacity: 0.7; }
+        }
+
+        /* Hero Section */
+        .hero-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4rem 3rem;
+            border-radius: 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+
+        /* The Love Button */
+        .love-btn {
+            background: linear-gradient(45deg, var(--primary-red), var(--soft-pink));
+            color: white;
+            border: none;
+            padding: 20px 70px;
+            font-size: 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .love-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .love-btn:hover::before {
+            left: 100%;
+        }
+
+        .love-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 45px rgba(255, 77, 109, 0.6), 0 0 20px var(--light-gold);
+        }
+
+        /* Popup Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .message-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid var(--light-gold);
+            padding: 3rem;
+            border-radius: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.7) translateY(50px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: 0 0 50px rgba(249, 220, 196, 0.2);
+        }
+
+        .overlay.show .message-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .message-card h2 {
+            font-family: 'Amiri', serif;
+            font-size: 2.8rem;
+            color: var(--light-gold);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(249, 220, 196, 0.5);
+        }
+
+        .message-card p {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .close-btn {
+            margin-top: 2rem;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+    <div class="light-glow"></div>
+
+    <div class="hero-container">
+        <div class="glass-card">
+            <button class="love-btn" onclick="openMessage()">LOVE</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay">
+        <div class="message-card">
+            <h2>عيد سعيد يا لين 🥺✨</h2>
+            <p>كل عام وأنتِ بخير، أتمنى لكِ السعادة والفرح في هذا العيد.</p>
+            <button class="close-btn" onclick="closeMessage()">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 20;
+                this.size = Math.random() * 4 + 1;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.5 ? '#ff4d6d' : '#f9dcc4';
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                if (this.y < -10) this.reset();
+            }
+
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                // Draw small hearts or circles
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        function openMessage() {
+            document.getElementById('overlay').classList.add('show');
+            // Add extra particles on click
+            for(let i=0; i<30; i++) {
+                let p = new Particle();
+                p.y = window.innerHeight/2;
+                p.x = window.innerWidth/2;
+                p.speedY = (Math.random() - 0.5) * 10;
+                p.speedX = (Math.random() - 0.5) * 10;
+                particles.push(p);
+            }
+        }
+
+        function closeMessage() {
+            document.getElementById('overlay').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
